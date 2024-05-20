@@ -4,7 +4,7 @@
 set nocompatible
 
 " 设置真颜色
-" set termguicolors
+set termguicolors
 
 " 开启备份功能
 set backup
@@ -88,6 +88,12 @@ set autoindent
 " C,C++的智能缩进
 set cindent
 
+" 左侧显示更多内容
+set signcolumn=number
+
+" 响应速度
+set updatetime=100
+
 " 开启插件
 filetype plugin indent on
 
@@ -112,11 +118,46 @@ Plug 'vim-airline/vim-airline'
 " 文件目录
 Plug 'scrooloose/nerdtree'
 
+" COC
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 call plug#end()
 
 
 
 
+" ======= 插件管理 =======
+
+" ======= coc =======
+
+" coc插件管理
+let g:coc_global_extensions = [
+    \ 'coc-vimlsp',
+    \ 'coc-highlight',
+    \ 'coc-jedi']
+
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" 触发补全
+inoremap <silent><expr> <c-o> coc#refresh()
+
+" 同词高亮
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " ======= 按键映射 =======
 
