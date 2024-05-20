@@ -130,6 +130,11 @@ call plug#end()
 
 " ======= coc =======
 
+" 颜色
+hi Pmenu ctermfg=7 ctermbg=236
+hi PmenuSel ctermfg=white ctermbg=32
+hi CocFloating ctermfg=black ctermbg=240
+
 " coc插件管理
 let g:coc_global_extensions = [
     \ 'coc-vimlsp',
