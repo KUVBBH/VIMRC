@@ -199,4 +199,3 @@ map <LEADER><Space> :w<CR>
 
 " 按键映射,打开NERDTree
 map <LEADER>n :NERDTreeToggle<CR>
-
