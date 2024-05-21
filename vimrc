@@ -1,99 +1,31 @@
-
 " ======= 基础设置 =======
 
-" 关闭兼容模式
-set nocompatible
-
-" 设置真颜色
-set termguicolors
-
-" 开启备份功能
-set backup
-
-" 备份保存位置
-set backupdir=/storage/emulated/0/vim备份
-
-" 设置leader键,主键
-let mapleader=" "
-
-" 文件编码
-set enc=utf-8
-
-" 代码高亮
-syntax on
-
-" 左侧显示行号
-set number
-
-" 相对行号显示
-set relativenumber
-
-" 突出显示当前行
-set cursorline
-
-" 突出显示当前列
-" set cursorcolumn
-
-" 文本自动换行
-set wrap
-
-" 显示正在键入的命令或者动作
-set showcmd
-
-" 菜单命令补全
-set wildmenu
-
-" 搜索高亮
-set hlsearch
-
-" 搜索结果即时显示
-set incsearch
-
-" 清除搜索高亮
-exec "nohlsearch"
-
-" 搜索区分大小写
-set noignorecase
-
-" 搜索智能区分大小写
-set nosmartcase
-
-" 分屏
-" set splitright
-" set splitbelow
-
-" 制表符长度
-set tabstop=4
-
-" 自动缩进
-set autoindent
-
-" Tap和Backspace的行为
-set softtabstop=4 
-
-" 用空格代替制表符
-set expandtab
-
-" 自动缩进和宽度
-set shiftwidth=4
-
-" 自动Tab
-set smarttab
-
-" 智能缩进
-set smartindent
-
-" 智能缩进，联系上下文
-set autoindent
-
-" C,C++的智能缩进
-set cindent
-
-" 左侧显示更多内容
-set signcolumn=yes
-
-" 响应速度
-set updatetime=100
+set nocompatible       " 关闭兼容模式
+set termguicolors      " 设置真颜色
+let mapleader=" "      " 设置leader键,主键
+set enc=utf-8          " 文件编码
+syntax on              " 代码高亮
+set number             " 左侧显示行号
+set relativenumber     " 相对行号显示
+set cursorline         " 突出显示当前行
+set wrap               " 文本自动换行
+set showcmd            " 显示正在键入的动作
+set wildmenu           " 菜单命令补全
+set hlsearch           " 搜索高亮
+set incsearch          " 搜索结果即时显示
+set noignorecase       " 搜索区分大小写
+set nosmartcase        " 搜索智能区分大小写
+set tabstop=4          " 制表符长度
+set autoindent         " 自动缩进
+set softtabstop=4      " Tap
+set expandtab          " 用空格代替制表符
+set shiftwidth=4       " 自动缩进和宽度
+set smarttab           " 自动Tab
+set smartindent        " 智能缩进
+set autoindent         " 智能缩进，联系上下文
+set cindent            " C,C++的智能缩进
+set signcolumn=yes     " 左侧显示更多内容
+set updatetime=100     " 响应速度
 
 " 开启插件
 filetype plugin indent on
@@ -102,6 +34,25 @@ filetype plugin indent on
 let &t_SI.="\e[6 q" "SI = INSERT mode
 let &t_SR.="\e[4 q" "SR = REPLACE mode
 let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
+
+" set backup             " 开启备份功能
+" set backupdir=~/.备份  " 备份保存位置
+" set cursorcolumn       " 突出显示当前列
+" exec "nohlsearch"      " 清除搜索高亮
+
+
+
+
+" ======= undofile文件修改历史记录 =======
+
+if has("persistent_undo")
+    let target_path = expand('~/.undodir')
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+    let &undodir=target_path
+    set undofile
+endif
 
 
 
@@ -119,6 +70,9 @@ Plug 'yianwillis/vimcdoc'
 
 " 文件目录
 Plug 'scrooloose/nerdtree'
+
+" undotree
+Plug 'mbbill/undotree'
 
 " COC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -165,6 +119,10 @@ inoremap <silent><expr> <c-o> coc#refresh()
 
 " 同词高亮
 autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
+
+
 
 " ======= 按键映射 =======
 
@@ -228,3 +186,6 @@ map <LEADER><Space> :w<CR>
 
 " 按键映射,打开NERDTree
 map <LEADER>n :NERDTreeToggle<CR>
+
+" 按键映射,打开UndotreeToggle
+map <LEADER>u :UndotreeToggle<CR>
