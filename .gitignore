@@ -1,3 +1,4 @@
-*
-!.gitignore
-!vimrc
+plugged/
+molokai/
+autoload/
+1.*
