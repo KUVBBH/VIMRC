@@ -89,7 +89,7 @@ set autoindent
 set cindent
 
 " 左侧显示更多内容
-set signcolumn=number
+set signcolumn=yes
 
 " 响应速度
 set updatetime=100
@@ -113,7 +113,8 @@ call plug#begin()
 " 状态栏
 Plug 'vim-airline/vim-airline'
 
-" 自动补全括号
+" 中文文档
+Plug 'yianwillis/vimcdoc'
 
 " 文件目录
 Plug 'scrooloose/nerdtree'
@@ -175,67 +176,48 @@ autocmd Filetype gitcommit map <LEADER>d ggdd:0r !date +"\%Y-\%m-\%d \%H:\%M:\%S
 
 " ======= markdown =======
 
-autocmd Filetype markdown inoremap <buffer> `< <Esc>/<++><CR>:nohlsearch<CR>c4l
-
-autocmd Filetype markdown inoremap <buffer> `b **** <++><Esc>F*hi
-
-autocmd Filetype markdown inoremap <buffer> `* ** <++><Esc>F*i
-
-autocmd Filetype markdown inoremap <buffer> `` `` <++><Esc>F`i
-
-autocmd Filetype markdown inoremap <buffer> `c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA
-
-autocmd Filetype markdown inoremap <buffer> `1 #<Space><Enter><++><Esc>kA
-
-autocmd Filetype markdown inoremap <buffer> `2 ##<Space><Enter><++><Esc>kA
-
-autocmd Filetype markdown inoremap <buffer> `3 ###<Space><Enter><++><Esc>kA
-
-autocmd Filetype markdown inoremap <buffer> `4 ####<Space><Enter><++><Esc>kA
-
-autocmd Filetype markdown inoremap <buffer> `5 #####<Space><Enter><++><Esc>kA
-
-autocmd Filetype markdown inoremap <buffer> `6 ######<Space><Enter><++><Esc>kA
-
-autocmd Filetype markdown inoremap <buffer> `p ![](<++>) <++><Esc>F[a
-
-autocmd Filetype markdown inoremap <buffer> `j <img src="" width="auto<++>" height="auto<++>" alt="None"<++>><++><Esc>0f"a
-
-autocmd Filetype markdown inoremap <buffer> `~ ~~~~ <++><Esc>F~hi
-
-autocmd Filetype markdown inoremap <buffer> `- ---<Enter><Enter>
-
-autocmd Filetype markdown inoremap <buffer> `= ===<Enter><Enter>
-
-autocmd Filetype markdown inoremap <buffer> `l --------<Enter>
-
-autocmd Filetype markdown inoremap <buffer> `i <++>
-
-autocmd Filetype markdown inoremap <buffer> `a [](<++>)<++><Esc>F[a
-
-autocmd Filetype markdown inoremap <buffer> `m <span id="move"></span><++><Esc>F"i
+function! Markdown_map()
+    inoremap <buffer> `> <Esc>/<++><CR>:nohlsearch<CR>c4l
+    inoremap <buffer> `b **** <++><Esc>F*hi
+    inoremap <buffer> `* ** <++><Esc>F*i
+    inoremap <buffer> `` `` <++><Esc>F`i
+    inoremap <buffer> `c ```<Enter><++><Enter>```<Enter><Enter><++><Esc>4kA
+    inoremap <buffer> `1 #<Space><Enter><++><Esc>kA
+    inoremap <buffer> `2 ##<Space><Enter><++><Esc>kA
+    inoremap <buffer> `3 ###<Space><Enter><++><Esc>kA
+    inoremap <buffer> `4 ####<Space><Enter><++><Esc>kA
+    inoremap <buffer> `5 #####<Space><Enter><++><Esc>kA
+    inoremap <buffer> `6 ######<Space><Enter><++><Esc>kA
+    inoremap <buffer> `p ![](<++>) <++><Esc>F[a
+    inoremap <buffer> `j <img src="" width="auto<++>" height="auto<++>" alt="None"<++>><++><Esc>0f"a
+    inoremap <buffer> `~ ~~~~ <++><Esc>F~hi
+    inoremap <buffer> `- ---<Enter><Enter>
+    inoremap <buffer> `= ===<Enter><Enter>
+    inoremap <buffer> `l --------<Enter>
+    inoremap <buffer> `i <++>
+    inoremap <buffer> `a [](<++>)<++><Esc>F[a
+    inoremap <buffer> `m <span id="move"></span><++><Esc>F"i
+endfunction
 
 " ======= Python =======
 
-autocmd Filetype python inoremap <buffer> `< <Esc>/<++><CR>:nohlsearch<CR>c4l
+function! Python_map()
+    inoremap <buffer> `> <Esc>/<++><CR>:nohlsearch<CR>c4l
+    inoremap <buffer> `( ()<++><Esc>F(a
+    inoremap <buffer> `[ []<++><Esc>F[a
+    inoremap <buffer> `{ {}<++><Esc>F{a
+    inoremap <buffer> `' ''<++><Esc>F'i
+    inoremap <buffer> `" ""<++><Esc>F"i
+    " Python run
+    map <buffer> <LEADER>r :w<CR>:!clear && python %<CR>
+    map <buffer> <LEADER>R :w<CR>:below terminal ++rows=10 python %<CR>
+    map <buffer> <LEADER>b :w<CR>:!python -m black %<CR>
+endfunction
 
-autocmd Filetype python inoremap <buffer> `( ()<++><Esc>F(a
+" ======= others =======
 
-autocmd Filetype python inoremap <buffer> `[ []<++><Esc>F[a
-
-autocmd Filetype python inoremap <buffer> `{ {}<++><Esc>F{a
-
-autocmd Filetype python inoremap <buffer> `' ''<++><Esc>F'i
-
-autocmd Filetype python inoremap <buffer> `" ""<++><Esc>F"i
-
-" ======= Python run =======
-
-autocmd Filetype python map <buffer> <LEADER>r :w<CR>:!clear && python %<CR>
-
-autocmd Filetype python map <buffer> <LEADER>R :w<CR>:below terminal ++rows=10 python %<CR>
-
-autocmd Filetype python map <buffer> <LEADER>b :w<CR>:!python -m black %<CR>
+autocmd Filetype markdown call Markdown_map()
+autocmd Filetype python call Python_map()
 
 " 按键映射,保存并退出
 map <LEADER>q :wq<CR>
