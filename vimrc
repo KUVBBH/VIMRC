@@ -41,6 +41,7 @@ let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
 " exec "nohlsearch"      " 清除搜索高亮
 
 " 配色
+" https://github.com/tomasr/molokai
 colorscheme molokai
 " let g:molokai_original = 1
 " let g:rehash256 = 1
