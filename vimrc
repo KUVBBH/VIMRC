@@ -197,6 +197,8 @@ function! Python_map()
     map <buffer> <LEADER>R :w<CR>:below terminal ++rows=10 python %<CR>
     map <buffer> <LEADER>b :w<CR>:!python -m black %<CR>
 endfunction
+    " black
+    map <LEADER>b :w<CR>:!python -m black %<CR>
 
 " ======= others =======
 
