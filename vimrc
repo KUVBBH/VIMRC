@@ -484,7 +484,7 @@ function! Markdown_map()
     inoremap <buffer> `m <span id="move"></span><++><Esc>F"i
 endfunction
     " Markdown run
-    map <LEADER>r :InstantMarkdownPreview<CR>
+    map <buffer> <LEADER>r :InstantMarkdownPreview<CR>
 
 " ======= Python =======
 
@@ -501,7 +501,7 @@ function! Python_map()
     map <buffer> <LEADER>b :w<CR>:!python -m black %<CR>
 endfunction
     " black
-    map <LEADER>b :w<CR>:!python -m black %<CR>
+    map <buffer> <LEADER>b :w<CR>:!python -m black %<CR>
 
 " ======= others =======
 
