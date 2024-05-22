@@ -97,6 +97,30 @@ call plug#end()
 
 " ======= 插件管理 =======
 
+" ======= vim-table-mode =======
+function! s:isAtStartOfLine(mapping)
+	let text_before_cursor = getline('.')[0 : col('.')-1]
+	let mapping_pattern = '\V' . escape(a:mapping, '\')
+	let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+	return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+    \ <SID>isAtStartOfLine('\|\|') ?
+	\ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+inoreabbrev <expr> __
+	\ <SID>isAtStartOfLine('__') ?
+	\ '<c-o>:silent! TableModeDisable<cr>' : '__'
+
+" ======= airline =======
+
+" 使用powerline 打过补丁的字体
+" let g:airline_powerline_fonts = 1
+" 开启状态栏
+let g:airline#extensions#tabline#enabled = 1
+" 显示 buffer 编
+let g:airline#extensions#tabline#buffer_nr_show = 1
+
 " ======= coc =======
 
 " coc插件管理
