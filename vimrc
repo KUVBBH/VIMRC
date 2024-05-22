@@ -496,6 +496,9 @@ map <LEADER>n :NERDTreeToggle<CR>
 " 按键映射,打开UndotreeToggle
 map <LEADER>u :UndotreeToggle<CR>
 
+" 取消高亮
+map <LEADER>nh :nohlsearch<CR>
+
 " V模式块移动
 vmap J :m '>+1<CR>gv=gv
 vmap K :m '<-2<CR>gv=gv
