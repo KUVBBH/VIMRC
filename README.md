@@ -18,7 +18,7 @@ pkg update && pkg upgrade
 pkg install git vim python nodejs yarn -y
 
 #一些Python包
-pip install black jedi
+pip install black
 
 # 下载VIM插件管理器Plug
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
