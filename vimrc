@@ -485,6 +485,12 @@ function! Markdown_map()
     map <buffer> <LEADER>r :InstantMarkdownPreview<CR>
 endfunction
 
+" ======= rust =======
+function! Rust_map()
+    map <buffer> <LEADER>c :w<CR>:!clear && cargo check <CR>
+    map <buffer> <LEADER>C :w<CR>:below terminal ++rows=10 cargo check<CR>
+endfunction
+
 " ======= Python =======
 
 function! Python_map()
@@ -504,6 +510,7 @@ endfunction
 
 autocmd Filetype markdown call Markdown_map()
 autocmd Filetype python call Python_map()
+autocmd Filetype rust call Rust_map()
 
 " 按键映射,保存并退出
 map <LEADER>q :wq<CR>
