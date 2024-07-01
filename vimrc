@@ -28,6 +28,7 @@ set signcolumn=yes     " 左侧显示更多内容
 set updatetime=100     " 响应速度
 
 " 开启插件
+" syntax enable
 filetype plugin indent on
 
 " 光标状态
@@ -42,7 +43,7 @@ let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
 
 " 配色
 " https://github.com/tomasr/molokai
-colorscheme molokai
+ colorscheme molokai
 " let g:molokai_original = 1
 " let g:rehash256 = 1
 
@@ -81,8 +82,6 @@ Plug 'scrooloose/nerdtree'
 " undotree
 Plug 'mbbill/undotree'
 
-" COC
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " MarkDown预览
 Plug 'instant-markdown/vim-instant-markdown', {'for': ['markdown'], 'do': 'yarn install'} 
@@ -90,12 +89,77 @@ Plug 'instant-markdown/vim-instant-markdown', {'for': ['markdown'], 'do': 'yarn 
 " 制表插件
 Plug 'dhruvasagar/vim-table-mode',{'for': ['markdown']}
 
+" rust
+Plug 'rust-lang/rust.vim',{'for': ['rust']}
+
+" python
+Plug 'davidhalter/jedi-vim',{'for': ['python']}
+
 call plug#end()
 
 
 
 
 " ======= 插件管理 =======
+
+" ======= rust.vim =======
+let g:rustfmt_autosave = 1
+
+" ======= python jedi =======
+
+" 插件功能自动初始化
+let g:jedi#auto_initialization = 1
+
+" VIM设置初始化
+let g:jedi#auto_vim_configuration = 1 
+
+" 只考虑当前打开的代码做上下文
+" let g:jedi#use_tabs_not_buffers = 1
+
+" . 触发自动补全
+let g:jedi#popup_on_dot = 0
+
+" 自动补全默认选择第一个选项
+let g:jedi#popup_select_first = 1
+
+" 函数参数显示模式 1 or 2
+let g:jedi#show_call_signatures = "2"
+
+" 自动补全禁用
+" let g:jedi#completions_enabled = 0
+
+" 虚拟环节检测
+" let g:jedi#environment_path = "venv"
+
+" 自动补全提示精简
+autocmd FileType python setlocal completeopt-=preview
+
+" 通用跳转命令
+let g:jedi#goto_command = "<leader>d"
+
+" 设置跳转到变量或函数赋值位置的快捷键
+let g:jedi#goto_assignments_command = ""
+
+" 跳转声明
+let g:jedi#goto_stubs_command = ""
+
+" 设置跳转到函数、类或模块定义位置的快捷键
+let g:jedi#goto_definitions_command = ""
+
+" 显示当前光标下 Python 对象的__doc__
+let g:jedi#documentation_command = ""
+
+" 显示当前光标下 Python 对象的所有引用位置
+let g:jedi#usages_command = "<leader>f"
+
+" 触发代码补全 "<C-Space>"
+let g:jedi#completions_command = "<C-Space>"
+
+" 重命名当前光标下 Python 对象的所有位置
+let g:jedi#rename_command = "<leader>i"
+
+" 保留且重命名当前光标下 Python 对象的所有位置
+let g:jedi#rename_command_keep_name = "<leader>I"
 
 " ======= vim-table-mode =======
 function! s:isAtStartOfLine(mapping)
@@ -120,36 +184,6 @@ inoreabbrev <expr> __
 let g:airline#extensions#tabline#enabled = 1
 " 显示 buffer 编
 let g:airline#extensions#tabline#buffer_nr_show = 1
-
-" ======= coc =======
-
-" coc插件管理
-let g:coc_global_extensions = [
-    \ 'coc-vimlsp',
-    \ 'coc-highlight',
-    \ 'coc-jedi']
-
-
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#next(1) :
-      \ CheckBackspace() ? "\<Tab>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
-
-" Make <CR> to accept selected completion item or notify coc.nvim to format
-" <C-g>u breaks current undo, please make your own choice
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm(): "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-" 触发补全
-inoremap <silent><expr> <c-o> coc#refresh()
-
-" 同词高亮
-autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " ======= vim-instant-markdown =======
 
